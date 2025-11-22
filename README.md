@@ -1,14 +1,7 @@
 # Multi Labeler
 
-[![codecov](https://codecov.io/gh/endock/multi-labeler/branch/main/graph/badge.svg?token=SOWIV1VVM1)](https://codecov.io/gh/endock/multi-labeler)
-[![CodeFactor](https://www.codefactor.io/repository/github/endock/multi-labeler/badge)](https://www.codefactor.io/repository/github/endock/multi-labeler)
-[![Release](https://img.shields.io/github/v/release/endock/multi-labeler)](https://github.com/endock/multi-labeler/releases)
-[![License MIT](https://img.shields.io/github/license/endock/multi-labeler)](https://github.com/endock/multi-labeler/blob/main/LICENSE)
-
 Multi labeler for title, body, comments, commit messages, branch, base branch, author or files.
 Optionally, generate a status check based on the labels.
-
-[Who is using `endock/multi-labeler`?](https://github.com/search?o=desc&q=endock+%2F+multi-labeler&s=indexed&type=Code)
 
 ## Features
 
