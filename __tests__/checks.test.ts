@@ -427,7 +427,7 @@ describe('checks', () => {
 
     expect(checks.length).toBe(1);
     expect(checks[0].context).toBe('Semantic Pull Request');
-    expect(checks[0].url).toBe('https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml');
+    expect(checks[0].url).toBe('https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml');
     expect(checks[0].state).toBe('success');
     expect(checks[0].description).toBe('Ready for review & merge.');
   });
@@ -437,7 +437,7 @@ describe('checks', () => {
 
     expect(checks.length).toBe(1);
     expect(checks[0].context).toBe('Semantic Pull Request');
-    expect(checks[0].url).toBe('https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml');
+    expect(checks[0].url).toBe('https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml');
     expect(checks[0].state).toBe('success');
     expect(checks[0].description).toBe('Ready for review & merge.');
   });
@@ -447,7 +447,7 @@ describe('checks', () => {
 
     expect(checks.length).toBe(1);
     expect(checks[0].context).toBe('Semantic Pull Request');
-    expect(checks[0].url).toBe('https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml');
+    expect(checks[0].url).toBe('https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml');
     expect(checks[0].state).toBe('success');
     expect(checks[0].description).toBe('Ready for review & merge.');
   });
@@ -457,7 +457,7 @@ describe('checks', () => {
 
     expect(checks.length).toBe(1);
     expect(checks[0].context).toBe('Semantic Pull Request');
-    expect(checks[0].url).toBe('https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml');
+    expect(checks[0].url).toBe('https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml');
     expect(checks[0].state).toBe('success');
     expect(checks[0].description).toBe('Ready for review & merge.');
   });
@@ -467,7 +467,7 @@ describe('checks', () => {
 
     expect(checks.length).toBe(1);
     expect(checks[0].context).toBe('Semantic Pull Request');
-    expect(checks[0].url).toBe('https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml');
+    expect(checks[0].url).toBe('https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml');
     expect(checks[0].state).toBe('success');
     expect(checks[0].description).toBe('Ready for review & merge.');
   });
@@ -477,7 +477,7 @@ describe('checks', () => {
 
     expect(checks.length).toBe(1);
     expect(checks[0].context).toBe('Semantic Pull Request');
-    expect(checks[0].url).toBe('https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml');
+    expect(checks[0].url).toBe('https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml');
     expect(checks[0].state).toBe('failure');
     expect(checks[0].description).toBe('Missing semantic label for merge.');
   });

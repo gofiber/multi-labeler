@@ -1,14 +1,14 @@
 # Multi Labeler
 
-[![codecov](https://codecov.io/gh/fuxingloh/multi-labeler/branch/main/graph/badge.svg?token=SOWIV1VVM1)](https://codecov.io/gh/fuxingloh/multi-labeler)
-[![CodeFactor](https://www.codefactor.io/repository/github/fuxingloh/multi-labeler/badge)](https://www.codefactor.io/repository/github/fuxingloh/multi-labeler)
-[![Release](https://img.shields.io/github/v/release/fuxingloh/multi-labeler)](https://github.com/fuxingloh/multi-labeler/releases)
-[![License MIT](https://img.shields.io/github/license/fuxingloh/multi-labeler)](https://github.com/fuxingloh/multi-labeler/blob/main/LICENSE)
+[![codecov](https://codecov.io/gh/endock/multi-labeler/branch/main/graph/badge.svg?token=SOWIV1VVM1)](https://codecov.io/gh/endock/multi-labeler)
+[![CodeFactor](https://www.codefactor.io/repository/github/endock/multi-labeler/badge)](https://www.codefactor.io/repository/github/endock/multi-labeler)
+[![Release](https://img.shields.io/github/v/release/endock/multi-labeler)](https://github.com/endock/multi-labeler/releases)
+[![License MIT](https://img.shields.io/github/license/endock/multi-labeler)](https://github.com/endock/multi-labeler/blob/main/LICENSE)
 
 Multi labeler for title, body, comments, commit messages, branch, base branch, author or files.
 Optionally, generate a status check based on the labels.
 
-[Who is using `fuxingloh/multi-labeler`?](https://github.com/search?o=desc&q=fuxingloh+%2F+multi-labeler&s=indexed&type=Code)
+[Who is using `endock/multi-labeler`?](https://github.com/search?o=desc&q=endock+%2F+multi-labeler&s=indexed&type=Code)
 
 ## Features
 
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # follows semantic versioning. Lock to different version: v1, v1.5, v1.5.0 or use a commit hash.
-      - uses: fuxingloh/multi-labeler@v4 # v4
+      - uses: endock/multi-labeler@v4 # v4
         with:
           github-token: ${{secrets.GITHUB_TOKEN}} # optional, default to '${{ github.token }}'
           config-path: .github/labeler.yml # optional, default to '.github/labeler.yml'
@@ -139,7 +139,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@v4
+      - uses: endock/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -170,7 +170,7 @@ labels:
 
 checks:
   - context: 'Semantic Pull Request'
-    url: 'https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml'
+    url: 'https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml'
     description:
       success: Ready for review & merge.
       failure: Missing semantic label for merge.
@@ -200,7 +200,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@v4
+      - uses: endock/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -243,7 +243,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@v4
+      - uses: endock/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -274,7 +274,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: fuxingloh/multi-labeler@v4
+      - uses: endock/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -296,7 +296,7 @@ labels:
 
 ## Configuration
 
-Once you’ve added fuxingloh/multi-labeler to your repository,
+Once you’ve added endock/multi-labeler to your repository,
 it must be enabled by adding a `.github/labeler.yml` configuration file to the repository.
 If you want to use a configuration file shared across multiple repositories,
 you can set the`config-repo` input to point to a different repository.
@@ -305,7 +305,7 @@ as the default `GITHUB_TOKEN` only has access to the repository the action is ru
 
 ## Matchers
 
-> RegEx matcher requires backslash '\' to be double slashed '\\'. Hence, to match brackets '()' you need a regex of '\\(\\)'. See https://github.com/fuxingloh/multi-labeler/issues/103
+> RegEx matcher requires backslash '\' to be double slashed '\\'. Hence, to match brackets '()' you need a regex of '\\(\\)'. See https://github.com/endock/multi-labeler/issues/103
 
 ### PR/Issue Title: RegEx
 
