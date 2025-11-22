@@ -26,20 +26,19 @@ jobs:
       - run: npm run build
       - run: npm run package
 
-      - id: app
-        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
-        with:
-          app_id: ${{ secrets.WORKFLOW_APP_ID }}
-          private_key: ${{ secrets.WORKFLOW_PRIVATE_KEY }}
+#      - id: app
+#        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
+#        with:
+#          app_id: ${{ secrets.WORKFLOW_APP_ID }}
+#          private_key: ${{ secrets.WORKFLOW_PRIVATE_KEY }}
 
-      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
-        with:
-          token: ${{ steps.app.outputs.token }}
-          commit-message: 'chore(ci): npm run package'
-          title: 'chore(ci): npm run package'
-          body: |
-            #### What this PR does / why we need it:
+#      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+#        with:
+#          token: ${{ steps.app.outputs.token }}
+#          commit-message: 'chore(ci): npm run package'
+#          title: 'chore(ci): npm run package'
+#          body: |
+#            #### What this PR does / why we need it:
 
-            Updated `./dist/**` files with `npm run package`.
-
-          branch: ci-package
+#            Updated `./dist/**` files with `npm run package`.
+#          branch: ci-package
