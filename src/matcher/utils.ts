@@ -35,5 +35,11 @@ function toRegExp(regex: string): RegExp {
     }
   }
 
-  return new RegExp(regex);
+  try {
+    return new RegExp(regex);
+  } catch (e) {
+    const error = e instanceof Error ? e : new Error(String(e));
+    console.error(`Invalid regex ${regex}: ${error.message}`);
+    return new RegExp('(?!.*)');
+  }
 }

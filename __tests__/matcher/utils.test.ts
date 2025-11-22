@@ -35,3 +35,15 @@ it('logs invalid slash-delimited regex and still matches via fallback', function
     errorMock.mockRestore();
   }
 });
+
+it('logs invalid plain regex and returns a safe non-matching regex', function () {
+  const errorMock = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+  try {
+    expect(matcherRegex({ regex: '(', text: 'still safe' })).toBeFalsy();
+    expect(errorMock).toHaveBeenCalledTimes(1);
+    expect(errorMock.mock.calls[0][0]).toContain('Invalid regex (');
+  } finally {
+    errorMock.mockRestore();
+  }
+});
