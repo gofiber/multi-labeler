@@ -28,7 +28,7 @@
     "minimatch": "^9.0.5"
   },
   "devDependencies": {
-    "@eslint/js": "^8.57.1",
+    "@eslint/js": "^9.39.1",
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.20",
