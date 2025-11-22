@@ -5,7 +5,7 @@ import { GitHub } from '@actions/github/lib/utils';
 import { Config, getConfig } from '../src/config';
 import * as fs from 'fs';
 
-const client: InstanceType<typeof GitHub> = {
+const client = {
   rest: {
     repos: {
       // @ts-ignore
@@ -43,7 +43,7 @@ const client: InstanceType<typeof GitHub> = {
   paginate(params): Promise<any[]> {
     return Promise.resolve([]);
   },
-};
+} as unknown as InstanceType<typeof GitHub>;
 
 async function runLabels(configPath: string): Promise<string[]> {
   const config = await getConfig(client, configPath, 'owner-name/repo-name');

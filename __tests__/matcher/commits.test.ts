@@ -1,30 +1,30 @@
 import match from '../../src/matcher/commits';
 import * as github from '@actions/github';
 import { Config } from '../../src/config';
+import { GitHub } from '@actions/github/lib/utils';
 
 async function getMatchedLabels(config: Config): Promise<string[]> {
-  return match(
-    {
-      rest: {
-        pulls: {
-          listCommits: {
-            endpoint: {
-              // @ts-ignore
-              merge(params) {
-                return { pull_number: params.pull_number };
-              },
+  const client = {
+    rest: {
+      pulls: {
+        listCommits: {
+          endpoint: {
+            // @ts-ignore
+            merge(params) {
+              return { pull_number: params.pull_number };
             },
           },
         },
       },
-      // @ts-ignore
-      paginate(params): Promise<any[]> {
-        // @ts-ignore
-        return Promise.resolve(commits[params.pull_number]);
-      },
     },
-    config,
-  );
+    // @ts-ignore
+    paginate(params): Promise<any[]> {
+      // @ts-ignore
+      return Promise.resolve(commits[params.pull_number]);
+    },
+  } as unknown as InstanceType<typeof GitHub>;
+
+  return match(client, config);
 }
 
 const config: Config = {
