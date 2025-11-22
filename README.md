@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # follows semantic versioning. Lock to different version: v1, v1.5, v1.5.0 or use a commit hash.
-      - uses: endock/multi-labeler@v4 # v4
+      - uses: gofiber/multi-labeler@v4 # v4
         with:
           github-token: ${{secrets.GITHUB_TOKEN}} # optional, default to '${{ github.token }}'
           config-path: .github/labeler.yml # optional, default to '.github/labeler.yml'
@@ -132,7 +132,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: endock/multi-labeler@v4
+      - uses: gofiber/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -163,7 +163,7 @@ labels:
 
 checks:
   - context: 'Semantic Pull Request'
-    url: 'https://github.com/endock/multi-labeler/blob/main/.github/labeler.yml'
+    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.yml'
     description:
       success: Ready for review & merge.
       failure: Missing semantic label for merge.
@@ -193,7 +193,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: endock/multi-labeler@v4
+      - uses: gofiber/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -236,7 +236,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: endock/multi-labeler@v4
+      - uses: gofiber/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -267,7 +267,7 @@ jobs:
     name: Labeler
     runs-on: ubuntu-latest
     steps:
-      - uses: endock/multi-labeler@v4
+      - uses: gofiber/multi-labeler@v4
 ```
 
 #### `.github/labeler.yml`
@@ -289,7 +289,7 @@ labels:
 
 ## Configuration
 
-Once you’ve added endock/multi-labeler to your repository,
+Once you’ve added gofiber/multi-labeler to your repository,
 it must be enabled by adding a `.github/labeler.yml` configuration file to the repository.
 If you want to use a configuration file shared across multiple repositories,
 you can set the`config-repo` input to point to a different repository.
@@ -298,7 +298,7 @@ as the default `GITHUB_TOKEN` only has access to the repository the action is ru
 
 ## Matchers
 
-> RegEx matcher requires backslash '\' to be double slashed '\\'. Hence, to match brackets '()' you need a regex of '\\(\\)'. See https://github.com/endock/multi-labeler/issues/103
+> RegEx matcher requires backslash '\' to be double slashed '\\'. Hence, to match brackets '()' you need a regex of '\\(\\)'. See https://github.com/gofiber/multi-labeler/issues/103
 
 ### PR/Issue Title: RegEx
 

@@ -14,7 +14,7 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
-    environment: endock/multi-labeler workflow
+    environment: gofiber/multi-labeler workflow
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
