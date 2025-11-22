@@ -65,10 +65,7 @@ function getMatchers(config: Config): FileMatcher[] {
     .filter(({ any, all, count }) => {
       const hasCount =
         count !== undefined &&
-        (count.lte !== undefined ||
-          count.gte !== undefined ||
-          count.eq !== undefined ||
-          count.neq !== undefined);
+        (count.lte !== undefined || count.gte !== undefined || count.eq !== undefined || count.neq !== undefined);
 
       return any.length || all.length || hasCount;
     });

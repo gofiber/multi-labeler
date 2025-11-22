@@ -297,29 +297,12 @@ const files = {
     },
   ],
   8: [{ filename: 'app/1.js' }, { filename: 'app/2.js' }, { filename: 'app/3.js' }],
-  9: [
-    { filename: 'src/index.ts' },
-    { filename: 'docs/readme.md' },
-  ],
+  9: [{ filename: 'src/index.ts' }, { filename: 'docs/readme.md' }],
   10: [{ filename: 'lib/index.ts' }],
-  11: [
-    { filename: 'app/feature.ts' },
-    { filename: 'docs/readme.md' },
-  ],
-  12: [
-    { filename: 'app/feature.ts' },
-    { filename: 'app/helpers.ts' },
-    { filename: 'docs/readme.md' },
-  ],
-  13: [
-    { filename: 'src/index.ts' },
-    { filename: 'docs/readme.md' },
-  ],
-  14: [
-    { filename: 'lib/a.ts' },
-    { filename: 'lib/b.ts' },
-    { filename: 'misc/test.ts' },
-  ],
+  11: [{ filename: 'app/feature.ts' }, { filename: 'docs/readme.md' }],
+  12: [{ filename: 'app/feature.ts' }, { filename: 'app/helpers.ts' }, { filename: 'docs/readme.md' }],
+  13: [{ filename: 'src/index.ts' }, { filename: 'docs/readme.md' }],
+  14: [{ filename: 'lib/a.ts' }, { filename: 'lib/b.ts' }, { filename: 'misc/test.ts' }],
   15: [],
   16: [{ filename: 'docs/readme.md' }],
 };
