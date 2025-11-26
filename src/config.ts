@@ -2,6 +2,8 @@ import * as yaml from 'js-yaml';
 import * as t from 'io-ts';
 import reporter from 'io-ts-reporters';
 import { isRight } from 'fp-ts/Either';
+import { composeConfigGet } from '@probot/octokit-plugin-config';
+import type { Octokit as ProbotOctokit } from '@octokit/core';
 import { GitHub } from '@actions/github/lib/utils';
 import * as github from '@actions/github';
 
@@ -75,8 +77,8 @@ export type Label = t.TypeOf<typeof Label>;
 export type Check = t.TypeOf<typeof Check>;
 export type Config = t.TypeOf<typeof Config>;
 
-export function parse(content: string): Config {
-  const config: any = yaml.load(content);
+export function parse(content: string | Record<string, unknown>): Config {
+  const config: any = typeof content === 'string' ? yaml.load(content) : content;
 
   const decoded = Config.decode(config);
   if (isRight(decoded)) {
@@ -93,13 +95,13 @@ export async function getConfig(
 ): Promise<Config> {
   const repoName = configRepo?.trim() ? configRepo : `${github.context.repo.owner}/${github.context.repo.repo}`;
   const [owner, repo] = repoName.split('/');
-  const response: any = await client.rest.repos.getContent({
+
+  const response = await composeConfigGet(client as unknown as ProbotOctokit, {
     owner,
     repo,
-    ref: repoName === github.context.payload.repository?.full_name ? github.context.sha : undefined,
     path: configPath,
+    branch: repoName === github.context.payload.repository?.full_name ? github.context.sha : undefined,
   });
 
-  const content: string = await Buffer.from(response.data.content, response.data.encoding).toString();
-  return parse(content);
+  return parse(response.config);
 }

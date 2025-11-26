@@ -104,7 +104,7 @@ labels:
 
 checks:
   - context: 'Semantic Pull Request'
-    url: 'https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml'
+    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.yml'
     description:
       success: Ready for review & merge.
       failure: Missing semantic label for merge.
@@ -116,7 +116,7 @@ checks:
         - docs
 
   - context: 'Do Not Merge'
-    url: 'https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml'
+    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.yml'
     description: "Disable merging when 'DO NOT MERGE' label is set"
     labels:
       none:

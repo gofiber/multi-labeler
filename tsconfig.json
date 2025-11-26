@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["ES2023"],
-    "module": "node16",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ES2022",
     "outDir": "./lib",
     "rootDir": "./src",
@@ -10,5 +11,5 @@
     "noImplicitAny": true,
     "esModuleInterop": true
   },
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "exclude": ["node_modules", "**/*.test.ts", "jest/**/*"]
 }
