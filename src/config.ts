@@ -6,6 +6,7 @@ import { composeConfigGet } from '@probot/octokit-plugin-config';
 import type { Octokit as ProbotOctokit } from '@octokit/core';
 import { GitHub } from '@actions/github/lib/utils';
 import * as github from '@actions/github';
+import { all } from 'deepmerge';
 
 const Matcher = t.partial({
   title: t.string,
@@ -101,6 +102,7 @@ export async function getConfig(
     repo,
     path: configPath,
     branch: repoName === github.context.payload.repository?.full_name ? github.context.sha : undefined,
+    defaults: (configs) => all([...configs]),
   });
 
   return parse(response.config);
