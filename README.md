@@ -521,3 +521,9 @@ checks:
    1. Assume you are using GitHub branch protection (labels only).
    2. I want to run this in PR triage before everything else (labels only).
    3. Chain this action with another action; this should just be for (labels only).
+
+## ☕ Supporters
+
+Fiber is an open-source project that runs on donations to pay the bills, e.g., our domain name, hosting, and serverless infrastructure. If you want to support Fiber, please become a [GitHub Sponsor](https://github.com/sponsors/gofiber).
+
+<!-- sponsors --><!-- sponsors -->
