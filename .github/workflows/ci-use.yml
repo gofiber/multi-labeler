@@ -6,6 +6,10 @@ on:
   issues:
   issue_comment:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.issue.number || github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   issues: write
@@ -16,6 +20,7 @@ jobs:
   action:
     name: Multi Labeler
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
       - uses: ./

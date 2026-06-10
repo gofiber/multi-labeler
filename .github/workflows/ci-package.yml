@@ -1,6 +1,7 @@
 name: CI Package
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 
@@ -14,6 +15,7 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: gofiber/multi-labeler workflow
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
@@ -21,6 +23,7 @@ jobs:
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version-file: '.nvmrc'
+          cache: npm
 
       - run: npm install
       - run: npm run build
