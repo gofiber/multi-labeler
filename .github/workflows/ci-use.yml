@@ -1,13 +1,21 @@
 name: CI Use
 
+# End-to-end self-test of the locally built action. Runs only when the action
+# itself changes so it never pollutes unrelated PRs/issues with the test:*
+# fixture labels; real labeling is handled by auto-labeler.yml (central config).
 on:
+  workflow_dispatch:
   pull_request:
     types: [opened, reopened, edited, synchronize, ready_for_review, labeled, unlabeled]
-  issues:
-  issue_comment:
+    paths:
+      - 'src/**'
+      - 'dist/**'
+      - 'action.yml'
+      - '.github/labeler.selftest.yml'
+      - '.github/workflows/ci-use.yml'
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.issue.number || github.head_ref || github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -24,3 +32,5 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./
+        with:
+          config-path: .github/labeler.selftest.yml

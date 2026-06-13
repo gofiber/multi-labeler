@@ -1,7 +1,7 @@
 version: v1
 
 labels:
-  - label: 'feat'
+  - label: '✏️ Feature'
     matcher:
       title: '^feat:.*'
       branch: '^feat/.*'
@@ -13,7 +13,7 @@ labels:
       branch: '^dependabot/.*'
       commits: '^chore(deps).*'
 
-  - label: 'fix'
+  - label: '☢️ Bug'
     matcher:
       title: '^fix:.*'
       branch: '^fix/.*'
@@ -29,7 +29,7 @@ labels:
     matcher:
       title: "^bump(\\((deps|ci)\\))?:.*"
 
-  - label: 'docs'
+  - label: '📒 Documentation'
     matcher:
       title: '^docs:.*'
       branch: '^docs/.*'
@@ -38,7 +38,7 @@ labels:
   - label: 'test:labeler'
     sync: true
     matcher:
-      files: '.github/labeler.yml'
+      files: '.github/labeler.selftest.yml'
 
   - label: 'test:dist'
     sync: true
@@ -104,19 +104,19 @@ labels:
 
 checks:
   - context: 'Semantic Pull Request'
-    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.yml'
+    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.selftest.yml'
     description:
       success: Ready for review & merge.
       failure: Missing semantic label for merge.
     labels:
       any:
-        - feat
-        - fix
+        - '✏️ Feature'
+        - '☢️ Bug'
         - chore
-        - docs
+        - '📒 Documentation'
 
   - context: 'Do Not Merge'
-    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.yml'
+    url: 'https://github.com/gofiber/multi-labeler/blob/main/.github/labeler.selftest.yml'
     description: "Disable merging when 'DO NOT MERGE' label is set"
     labels:
       none:

@@ -77,8 +77,8 @@ describe('labeler', () => {
     jest.restoreAllMocks();
   });
 
-  it('should be able to load default config', async function () {
-    await runLabels('.github/labeler.yml');
+  it('should be able to load self-test config', async function () {
+    await runLabels('.github/labeler.selftest.yml');
   });
 
   it('empty should not fail', async function () {
