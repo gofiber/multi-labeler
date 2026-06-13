@@ -2,7 +2,7 @@ name: Cleanup Release Draft
 
 on:
   workflow_run:
-    workflows: ["Release Drafter"]
+    workflows: ['Release Drafter']
     types: [completed]
   workflow_dispatch:
     inputs:
