@@ -1,3 +1,8 @@
+<p align="center">
+  <img height="125" alt="Fiber Multi Labeler" src="https://raw.githubusercontent.com/gofiber/multi-labeler/main/.github/logo-dark.svg#gh-dark-mode-only" />
+  <img height="125" alt="Fiber Multi Labeler" src="https://raw.githubusercontent.com/gofiber/multi-labeler/main/.github/logo.svg#gh-light-mode-only" />
+</p>
+
 # Multi Labeler
 
 Multi labeler for title, body, comments, commit messages, branch, base branch, author or files.
