@@ -85795,8 +85795,8 @@ const posixClasses = {
     '[:digit:]': ['\\p{Nd}'],
     '[:graph:]': ['\\p{Z}\\p{C}', true],
     '[:lower:]': ['\\p{Ll}'],
-    '[:print:]': ['\\p{C}'],
-    '[:punct:]': ['\\p{P}'],
+    '[:print:]': ['\\p{C}', true],
+    '[:punct:]': ['\\p{P}\\p{S}'],
     '[:space:]': ['\\p{Z}\\t\\r\\n\\v\\f'],
     '[:upper:]': ['\\p{Lu}'],
     '[:word:]': ['\\p{L}\\p{Nl}\\p{Nd}\\p{Pc}'],
@@ -85929,7 +85929,21 @@ const extTypes = '!?+*@';
 const lit = (ch) => ({ t: 'lit', ch });
 const reEscape = (s) => s.replace(/[\\^$.*+?()[\]{}|/]/g, '\\$&');
 // a RegExp that only matches `s`, with unicode case folding
-const foldRe = (s) => new RegExp(`^${reEscape(s)}$`, 'iu');
+const newFoldRe = (s) => new RegExp(`^${reEscape(s)}$`, 'iu');
+// foldRe for one literal char. The same chars are in most patterns,
+// so keep them. A RegExp without the `g` or `y` flag has no state to
+// share.
+const foldCache = new Map();
+const foldRe = (ch) => {
+    let re = foldCache.get(ch);
+    if (!re) {
+        re = newFoldRe(ch);
+        if (foldCache.size >= 1000)
+            foldCache.clear();
+        foldCache.set(ch, re);
+    }
+    return re;
+};
 const litMatch = (l, c) => {
     if (c === l.ch)
         return true;
@@ -86474,9 +86488,11 @@ class esm_Matcher {
     #marks;
     // the Sim for strings that are only `.` or `..`
     #dotsSim;
-    // the string to compare, if the pattern has no magic. The RegExp
-    // folds case, if `nocase:true`.
+    // the string to compare, if the pattern has no magic. With
+    // `nocase:true`, the RegExp that folds case is made when it is
+    // first used.
     #literal;
+    #literalFold = false;
     #literalRe;
     // the nodes between the prefix and suffix, if the graph is a
     // single chain
@@ -86519,8 +86535,7 @@ class esm_Matcher {
         this.#size = size;
         if (items.every(it => it.t === 'lit')) {
             this.#literal = items.map(it => it.ch).join('');
-            if (nocase)
-                this.#literalRe = foldRe(this.#literal);
+            this.#literalFold = nocase;
         }
         else {
             const lit = (it) => it.t !== 'lit' ? undefined
@@ -86579,8 +86594,8 @@ class esm_Matcher {
     // If it is not given, it is only found if a step needs it.
     #test(s, chars) {
         if (this.#literal !== undefined) {
-            return this.#literalRe ?
-                this.#literalRe.test(s)
+            return this.#literalFold ?
+                (this.#literalRe ??= newFoldRe(this.#literal)).test(s)
                 : s === this.#literal;
         }
         // the length check means that the prefix and suffix do not
@@ -86750,7 +86765,28 @@ const minimatch = (p, pattern, options = {}) => {
     if (!options.nocomment && pattern.charAt(0) === '#') {
         return false;
     }
-    return new Minimatch(pattern, options).match(p);
+    return cachedMinimatch(pattern, options).match(p);
+};
+// The Minimatch objects that minimatch() used most recently. A Map
+// keeps its keys in the order they were set, so the first key is the
+// one used least recently.
+const cache = new Map();
+const cacheMax = 256;
+const cachedMinimatch = (pattern, options) => {
+    const key = pattern + '\0' + JSON.stringify(options);
+    let mm = cache.get(key);
+    if (mm) {
+        cache.delete(key);
+    }
+    else {
+        // a copy, so a later change to the options can not change it
+        mm = new Minimatch(pattern, { ...options });
+        if (cache.size >= cacheMax) {
+            cache.delete(cache.keys().next().value);
+        }
+    }
+    cache.set(key, mm);
+    return mm;
 };
 /* c8 ignore start */
 const defaultPlatform = (typeof process === 'object' && process ?
@@ -87015,6 +87051,10 @@ const nextSep = (f, from, sep) => {
 const lastSep = (f, from, sep) => sep !== 'both' ?
     f.lastIndexOf(sep, from)
     : Math.max(f.lastIndexOf('/', from), f.lastIndexOf('\\', from));
+// What parse() returns in place of a Matcher while make() builds and
+// merges the rows. Most of the Matchers in rows that are merged would
+// never be used, so they are only made for the rows that are left.
+const PENDING = {};
 class Minimatch {
     options;
     set;
@@ -87050,6 +87090,8 @@ class Minimatch {
     // brace expansion can make the same portion in many rows, so they
     // share one Matcher, and the states that it caches
     #matchers = new Map();
+    // parse() returns PENDING in place of a Matcher
+    #pending = false;
     // the GlobstarParts of each pattern row, by start index and partial
     #globstarParts = new WeakMap();
     constructor(pattern, options = {}) {
@@ -87197,6 +87239,7 @@ class Minimatch {
         const rawGlobParts = this.globSet.map(s => this.#slashSplit(s));
         this.globParts = this.preprocess(rawGlobParts);
         // glob --> Matchers
+        this.#pending = true;
         let set = this.globParts.map((s, _, __) => {
             if (this.isWindows && this.windowsNoMagicRoot) {
                 // check if it's a drive or unc path. The root of a long UNC
@@ -87241,6 +87284,14 @@ class Minimatch {
         // with noext, `@(...)` would be literal
         if (!options.noext)
             this.mergeRows();
+        this.#pending = false;
+        this.set.forEach((row, i) => {
+            for (let k = 0; k < row.length; k++) {
+                if (row[k] === PENDING) {
+                    row[k] = this.parse(this.globParts[i][k]);
+                }
+            }
+        });
     }
     // Merge rows that only differ in one portion, where each of them
     // is a Matcher, into one row that matches any of them with
@@ -87255,7 +87306,7 @@ class Minimatch {
                 // the rows that are the same other than at portion k
                 const groups = new Map();
                 this.set.forEach((row, i) => {
-                    if (!(row[k] instanceof esm_Matcher) ||
+                    if (!(row[k] instanceof esm_Matcher || row[k] === PENDING) ||
                         !extSafe(this.globParts[i][k])) {
                         return;
                     }
@@ -88131,6 +88182,8 @@ class Minimatch {
                 pattern.toUpperCase() !== pattern.toLowerCase())) {
             return this.#norm(lit);
         }
+        if (this.#pending)
+            return PENDING;
         let m = this.#matchers.get(pattern);
         if (!m) {
             m = new esm_Matcher(pattern, { nocase, noext, dot, normalize });
