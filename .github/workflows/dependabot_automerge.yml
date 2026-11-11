@@ -15,6 +15,6 @@ jobs:
       # Package has to be in here: it is the check that dependabot-dist.yml
       # turns green, and without waiting for it the merge can win the race
       # against the rebuild and land a stale bundle on main.
-      match_pattern: 'Test|Build|[Ll]int|Package'
+      match_pattern: '^Test|^Build|^Lint |^Package|^Multi Labeler|^actionlint /'
     secrets:
       github-token: ${{ secrets.PR_TOKEN }}
