@@ -16,5 +16,8 @@ jobs:
       # turns green, and without waiting for it the merge can win the race
       # against the rebuild and land a stale bundle on main.
       match_pattern: '^Test|^Build|^Lint |^Package|^Multi Labeler|^actionlint /'
+      required_checks: |
+        npm: ^Test|^Build|^Lint \[|^Package
+        github-actions: ^Test|^Build|^Lint \[|^Package|^actionlint /
     secrets:
       github-token: ${{ secrets.PR_TOKEN }}
